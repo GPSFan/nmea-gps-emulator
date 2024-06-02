@@ -38,7 +38,13 @@ class NmeaMsg:
         self.gpvtg = Gpvtg(heading_true=heading, sog_knots=speed)
         self.gpzda = Gpzda(utc_date_time=self.utc_date_time)
         self.nmea_sentences = [self.gga,
-                               self.gprmc,]
+                               self.gpgsa,
+                               *[gpgsv for gpgsv in self.gpgsv_group.gpgsv_instances],
+                               self.gpgll,
+                               self.gprmc,
+                               self.gphdt,
+                               self.gpvtg,
+                               self.gpzda,]
 
     def __next__(self):
         utc_date_time_prev = self.utc_date_time
